@@ -44,12 +44,9 @@ void interact(FILE*, FILE*, FILE*);
 int main()
 {
     FILE* index_file, * flat_file, * company_file;
-    fopen_s(&index_file, INDEX_FILE, "wb");
-    fopen_s(&company_file, MASTER_FILE, "wb");
-    fopen_s(&flat_file, SLAVE_FILE, "wb");
-    index_file = freopen(INDEX_FILE, "rb+", index_file);
-    company_file = freopen(MASTER_FILE, "rb+", company_file);
-    flat_file = freopen(SLAVE_FILE, "rb+", flat_file);
+    fopen_s(&index_file, INDEX_FILE, "rb+");
+    fopen_s(&company_file, MASTER_FILE, "rb+");
+    fopen_s(&flat_file, SLAVE_FILE, "rb+");
     interact(index_file, company_file, flat_file);
     fclose(index_file);
     fclose(company_file);
@@ -167,9 +164,11 @@ void get_company(FILE* index_file, FILE* company_file) {
 }
 
 void del_flat(FILE* company_file, FILE* flat_file, FILE* index_file) {
-    std::cout << "\n Enter company ID \\ flat ID: ";
+    std::cout << "\n Enter company ID: ";
     int c_id, f_id;
-    std::cin >> c_id >> f_id;
+    std::cin >> c_id;
+    std::cout << "\n  Enter flat ID: ";
+    std::cin >> f_id;
     delete_flat(f_id, c_id, index_file, flat_file, company_file);
 }
 
@@ -233,6 +232,7 @@ void set_flat(FILE* flat_file, FILE* company_file, FILE* index_file) {
             continue;
         }
     }
+    set_flat_file(index_file, flat_file, company_file, f_dat.flat, c_id);
 }
 
 void print_flats(FILE* flat_file) {
@@ -542,6 +542,7 @@ int get_flat_pos(int flat_ID, int company_ID, FILE*index_file, FILE* company_fil
         return prev_flat_;
     }
     else {
+        std::cout << NOT_FOUND_ERROR;
         return NOT_FOUND;
     }
 }

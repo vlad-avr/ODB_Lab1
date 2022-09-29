@@ -23,7 +23,7 @@ unsigned int f_size() {
 }
 
 void f_print(Flat flat) {
-	std::cout << "\n ID: " << flat.ID << "\n";
+	std::cout << "\n Flat ID: " << flat.ID << "\n";
 	std::cout << " Company ID: " << flat.company_ID << "\n";
 	std::cout << " Address: " << flat.address << "\n";
 	std::cout << " Price: " << flat.price << "\n";
